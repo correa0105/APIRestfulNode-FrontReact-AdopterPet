@@ -194,10 +194,7 @@ module.exports = class PetController {
             updatedData.color = color
         }
 
-        if(images.length === 0) {
-            res.status(422).json({ message: 'Faça upload de uma foto do seu pet!' })
-            return
-        } else {
+        if(images.length > 0) {
             updatedData.images = []
             images.map(image => {
                 updatedData.images.push(image.filename)
@@ -224,7 +221,7 @@ module.exports = class PetController {
         const user = await getUserByToken(token)
 
         if(pet.user._id.equals(user._id)) {
-            res.status(422).json({ message: 'Você não agendar uma visita com seu próprio pet!' })
+            res.status(422).json({ message: 'Você não pode agendar uma visita com seu próprio pet!' })
             return
         }
 
